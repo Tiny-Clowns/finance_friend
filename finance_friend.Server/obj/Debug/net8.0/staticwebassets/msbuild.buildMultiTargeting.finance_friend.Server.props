@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\finance_friend.Server.props" />
-</Project>

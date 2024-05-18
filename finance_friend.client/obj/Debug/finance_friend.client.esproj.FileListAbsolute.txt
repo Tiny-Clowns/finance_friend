@@ -1,1 +1,2 @@
-C:\Users\tlsbr\source\repos\finance_friend\finance_friend.client\obj\Debug\finance_friend.client.esproj.CoreCompileInputs.cache
+C:/Users/tlsbr/source/repos/finance_friend/finance_friend.client/obj/Debug/finance_friend.client.esproj.CoreCompileInputs.cache
+/home/scriptluck/devs/finance_friend/finance_friend.client/obj/Debug/finance_friend.client.esproj.CoreCompileInputs.cache
