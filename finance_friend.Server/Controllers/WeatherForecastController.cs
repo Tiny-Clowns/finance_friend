@@ -1,3 +1,4 @@
+using finance_friend.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finance_friend.Server.Controllers
@@ -6,10 +7,10 @@ namespace finance_friend.Server.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
+        private static readonly string[] Summaries =
+        [
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        ];
 
         private readonly ILogger<WeatherForecastController> _logger;
 

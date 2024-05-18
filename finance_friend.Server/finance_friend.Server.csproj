@@ -22,4 +22,9 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="DAL\" />
+  </ItemGroup>
+
 </Project>

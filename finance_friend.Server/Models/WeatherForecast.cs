@@ -1,4 +1,4 @@
-namespace finance_friend.Server
+namespace finance_friend.Server.Models
 {
     public class WeatherForecast
     {
