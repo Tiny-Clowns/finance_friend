@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:5173",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Code\\finance_friend\\finance_friend.Server\\..\\finance_friend.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}
