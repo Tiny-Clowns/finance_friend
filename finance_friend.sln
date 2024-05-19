@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "finance_friend.Server", "finance_friend.Server\finance_friend.Server.csproj", "{6CB3232F-B7CB-47FB-AD30-E8B6A52AF6AE}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "finance_friend.client", "finance_friend.client\finance_friend.client.esproj", "{5EBC9336-01E3-4449-8C55-4F903ED544F7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6CB3232F-B7CB-47FB-AD30-E8B6A52AF6AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CB3232F-B7CB-47FB-AD30-E8B6A52AF6AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CB3232F-B7CB-47FB-AD30-E8B6A52AF6AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CB3232F-B7CB-47FB-AD30-E8B6A52AF6AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBC9336-01E3-4449-8C55-4F903ED544F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBC9336-01E3-4449-8C55-4F903ED544F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBC9336-01E3-4449-8C55-4F903ED544F7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5EBC9336-01E3-4449-8C55-4F903ED544F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBC9336-01E3-4449-8C55-4F903ED544F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBC9336-01E3-4449-8C55-4F903ED544F7}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1338411A-DA4E-4544-8E91-5BCB965E8A29}
+	EndGlobalSection
+EndGlobal
