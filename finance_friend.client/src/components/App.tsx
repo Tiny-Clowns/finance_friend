@@ -2,7 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ExamplePage from './ExamplePage';
+import ExamplePage from './examplePage'
 
 const darkTheme = createTheme({
   palette: {
