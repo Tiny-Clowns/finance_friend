@@ -28,11 +28,13 @@ CREATE TABLE `user` (
   `FirstName` varchar(255) NOT NULL,
   `Username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `Password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `BalanceDollars` decimal(20,4) NOT NULL,
   `Email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `MobileNumber` varchar(255) NOT NULL,
   `AddressId` int NOT NULL,
   `CompanyId` int DEFAULT NULL,
   `UserTypeId` int NOT NULL,
+  `CurrencyId` int NOT NULL,
   PRIMARY KEY (`UserId`),
   UNIQUE KEY `Username` (`Username`),
   UNIQUE KEY `Email` (`Email`),
@@ -40,8 +42,10 @@ CREATE TABLE `user` (
   KEY `FK_User_Address` (`AddressId`),
   KEY `FK_User_Company` (`CompanyId`),
   KEY `FK_User_UserType` (`UserTypeId`),
+  KEY `FK_User_Currency` (`CurrencyId`),
   CONSTRAINT `FK_User_Address` FOREIGN KEY (`AddressId`) REFERENCES `address` (`AddressId`),
   CONSTRAINT `FK_User_Company` FOREIGN KEY (`CompanyId`) REFERENCES `company` (`CompanyId`),
+  CONSTRAINT `FK_User_Currency` FOREIGN KEY (`CurrencyId`) REFERENCES `currency` (`CurrencyId`),
   CONSTRAINT `FK_User_UserType` FOREIGN KEY (`UserTypeId`) REFERENCES `usertype` (`UserTypeId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,4 +68,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-25 21:31:15
+-- Dump completed on 2024-05-25 21:33:57
