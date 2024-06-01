@@ -24,15 +24,12 @@ DROP TABLE IF EXISTS `earning`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `earning` (
   `EarningId` int NOT NULL AUTO_INCREMENT,
-  `Amount` int NOT NULL,
-  `CurrencyId` int NOT NULL,
+  `AmountDollars` decimal(20,4) NOT NULL,
   `UserId` int NOT NULL,
   `Description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `Timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`EarningId`),
-  KEY `FK_Earning_Currency` (`CurrencyId`),
   KEY `FK_Earning_User` (`UserId`),
-  CONSTRAINT `FK_Earning_Currency` FOREIGN KEY (`CurrencyId`) REFERENCES `currency` (`CurrencyId`),
   CONSTRAINT `FK_Earning_User` FOREIGN KEY (`UserId`) REFERENCES `user` (`UserId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -55,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-25 13:56:08
+-- Dump completed on 2024-05-25 21:33:57
