@@ -1,10 +1,11 @@
+using finance_friend.Server.DAL;
 using finance_friend.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace finance_friend.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries =
@@ -12,16 +13,20 @@ namespace finance_friend.Server.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         ];
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly UserDao _userDao;
+        private readonly AddressDao _addressDao;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(UserDao userDao, AddressDao addressDao)
         {
-            _logger = logger;
+            _userDao = userDao;
+            _addressDao = addressDao;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
+            var addresses = await _addressDao.GetAddresses();
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
