@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS `currency`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `currency` (
   `CurrencyId` int NOT NULL AUTO_INCREMENT,
+  `CurrencyCode` varchar(3) NOT NULL,
   `Unit` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `Description` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`CurrencyId`)
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-06 18:35:24
+-- Dump completed on 2024-06-06 19:33:28
