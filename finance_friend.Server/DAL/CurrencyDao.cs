@@ -3,25 +3,27 @@ using MySql.Data.MySqlClient;
 
 namespace finance_friend.Server.DAL
 {
-    public class UserTypeDao
+    public class CurrencyDao
     {
         private readonly string _connectionString;
         private readonly ILogger _logger;
-        public UserTypeDao(IConfiguration config, ILogger<UserTypeDao> logger)
+        public CurrencyDao(IConfiguration config, ILogger<CurrencyDao> logger)
         {
             _connectionString = config.GetConnectionString("Main")!;
             _logger = logger;
         }
 
-        private const string query_GetUserTypes = @"
+        private const string query_GetCurrencies = @"
 select
-ut.UserTypeId
-,ut.Description
-from usertype ut
+c.CurrencyId
+,c.CurrencyCode
+,c.Unit
+,c.Description
+from currency c
 ";
-        public async Task<IEnumerable<UserType>> GetUserTypes()
+        public async Task<IEnumerable<Currency>> GetCurrencies()
         {
-            var userTypes = new List<UserType>();
+            var currencies = new List<Currency>();
 
             try
             {
@@ -31,16 +33,18 @@ from usertype ut
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_GetUserTypes, connection);
+                var command = new MySqlCommand(query_GetCurrencies, connection);
                 var dr = await command.ExecuteReaderAsync();
 
                 while (dr.Read())
                 {
                     var i = -1;
 
-                    userTypes.Add(new UserType
+                    currencies.Add(new Currency
                     {
-                        UserTypeId = dr.GetInt32(++i),
+                        CurrencyId = dr.GetInt32(++i),
+                        CurrencyCode = dr.GetString(++i),
+                        Unit = dr.GetString(++i),
                         Description = dr.GetString(++i),
                     });
                 }
@@ -50,16 +54,24 @@ from usertype ut
                 _logger.LogError(ex, "Failed execution.");
             }
 
-            return userTypes;
+            return currencies;
         }
 
-        private const string query_CreateUserType = @"
-insert into usertype
-(Description)
+        private const string query_CreateCurrency = @"
+insert into currency
+(
+    CurrencyCode
+    ,Unit
+    ,Description
+)
 values
-(@pDescription)
+(
+    @pCurrencyCode
+    ,@pUnit
+    ,@pDescription
+)
 ";
-        public async Task<bool> CreateUserType(UserType userType)
+        public async Task<bool> CreateCurrency(Currency currency)
         {
             var result = false;
 
@@ -71,9 +83,11 @@ values
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_CreateUserType, connection);
+                var command = new MySqlCommand(query_CreateCurrency, connection);
 
-                command.Parameters.Add(new MySqlParameter("@pDescription", userType.Description));
+                command.Parameters.Add(new MySqlParameter("@pCurrencyCode", currency.CurrencyCode));
+                command.Parameters.Add(new MySqlParameter("@pUnit", currency.Unit));
+                command.Parameters.Add(new MySqlParameter("@pDescription", currency.Description));
 
                 result = await command.ExecuteNonQueryAsync() == 1;
             }
@@ -85,12 +99,16 @@ values
             return result;
         }
 
-        private const string query_UpdateUserType = @"
-update usertype
-set Description = @pDescription
-where UserTypeId = @pUserTypeId
+        private const string query_UpdateCurrency = @"
+update currency
+set 
+    CurrencyCode = @pCurrencyCode
+    ,Unit = @pUnit
+    ,Description = @pDescription
+where 
+    CurrencyId = @pCurrencyId
 ";
-        public async Task<bool> UpdateUserType(UserType userType)
+        public async Task<bool> UpdateCurrency(Currency currency)
         {
             var result = false;
 
@@ -102,10 +120,12 @@ where UserTypeId = @pUserTypeId
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_UpdateUserType, connection);
+                var command = new MySqlCommand(query_UpdateCurrency, connection);
 
-                command.Parameters.Add(new MySqlParameter("@pDescription", userType.Description));
-                command.Parameters.Add(new MySqlParameter("@pUserTypeId", userType.UserTypeId));
+                command.Parameters.Add(new MySqlParameter("@pCurrencyCode", currency.CurrencyCode));
+                command.Parameters.Add(new MySqlParameter("@pUnit", currency.Unit));
+                command.Parameters.Add(new MySqlParameter("@pDescription", currency.Description));
+                command.Parameters.Add(new MySqlParameter("@pCurrencyId", currency.CurrencyId));
 
                 result = await command.ExecuteNonQueryAsync() == 1;
             }
@@ -117,11 +137,11 @@ where UserTypeId = @pUserTypeId
             return result;
         }
 
-        private const string query_DeleteUserType = @"
-delete usertype
-where UserTypeId = @pUserTypeId
+        private const string query_DeleteCurrency = @"
+delete currency
+where CurrencyId = @pCurrencyId
 ";
-        public async Task<bool> DeleteUserType(int userTypeId)
+        public async Task<bool> DeleteCurrency(int currencyId)
         {
             var result = false;
 
@@ -133,9 +153,9 @@ where UserTypeId = @pUserTypeId
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_DeleteUserType, connection);
+                var command = new MySqlCommand(query_DeleteCurrency, connection);
 
-                command.Parameters.Add(new MySqlParameter("@pUserTypeId", userTypeId));
+                command.Parameters.Add(new MySqlParameter("@pCurrencyId", currencyId));
 
                 result = await command.ExecuteNonQueryAsync() == 1;
             }

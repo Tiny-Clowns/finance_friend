@@ -13,6 +13,10 @@ builder.Services.AddSwaggerGen();
 builder.Logging.AddConsole();
 
 builder.Services.AddSingleton<AddressDao>();
+builder.Services.AddSingleton<CompanyDao>();
+builder.Services.AddSingleton<CurrencyDao>();
+builder.Services.AddSingleton<EarningDao>();
+builder.Services.AddSingleton<ExpenseDao>();
 builder.Services.AddSingleton<UserDao>();
 builder.Services.AddSingleton<UserTypeDao>();
 

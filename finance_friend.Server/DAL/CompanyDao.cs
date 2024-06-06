@@ -3,25 +3,26 @@ using MySql.Data.MySqlClient;
 
 namespace finance_friend.Server.DAL
 {
-    public class UserTypeDao
+    public class CompanyDao
     {
         private readonly string _connectionString;
         private readonly ILogger _logger;
-        public UserTypeDao(IConfiguration config, ILogger<UserTypeDao> logger)
+        public CompanyDao(IConfiguration config, ILogger<CompanyDao> logger)
         {
             _connectionString = config.GetConnectionString("Main")!;
             _logger = logger;
         }
 
-        private const string query_GetUserTypes = @"
+        private const string query_GetCompanies = @"
 select
-ut.UserTypeId
-,ut.Description
-from usertype ut
+c.CompanyId
+,c.Name
+,c.AddressId
+from company c
 ";
-        public async Task<IEnumerable<UserType>> GetUserTypes()
+        public async Task<IEnumerable<Company>> GetCompanies()
         {
-            var userTypes = new List<UserType>();
+            var companies = new List<Company>();
 
             try
             {
@@ -31,17 +32,18 @@ from usertype ut
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_GetUserTypes, connection);
+                var command = new MySqlCommand(query_GetCompanies, connection);
                 var dr = await command.ExecuteReaderAsync();
 
                 while (dr.Read())
                 {
                     var i = -1;
 
-                    userTypes.Add(new UserType
+                    companies.Add(new Company
                     {
-                        UserTypeId = dr.GetInt32(++i),
-                        Description = dr.GetString(++i),
+                        CompanyId = dr.GetInt32(++i),
+                        Name = dr.GetString(++i),
+                        AddressId = dr.GetInt32(++i),
                     });
                 }
             }
@@ -50,16 +52,22 @@ from usertype ut
                 _logger.LogError(ex, "Failed execution.");
             }
 
-            return userTypes;
+            return companies;
         }
 
-        private const string query_CreateUserType = @"
-insert into usertype
-(Description)
+        private const string query_CreateCompany = @"
+insert into company
+(
+    Name
+    ,AddressId
+)
 values
-(@pDescription)
+(
+    @pName
+    ,@pAddressId
+)
 ";
-        public async Task<bool> CreateUserType(UserType userType)
+        public async Task<bool> CreateCompany(Company company)
         {
             var result = false;
 
@@ -71,9 +79,10 @@ values
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_CreateUserType, connection);
+                var command = new MySqlCommand(query_CreateCompany, connection);
 
-                command.Parameters.Add(new MySqlParameter("@pDescription", userType.Description));
+                command.Parameters.Add(new MySqlParameter("@pName", company.Name));
+                command.Parameters.Add(new MySqlParameter("@pAddressId", company.AddressId));
 
                 result = await command.ExecuteNonQueryAsync() == 1;
             }
@@ -85,12 +94,15 @@ values
             return result;
         }
 
-        private const string query_UpdateUserType = @"
-update usertype
-set Description = @pDescription
-where UserTypeId = @pUserTypeId
+        private const string query_UpdateCompany = @"
+update company
+set 
+    Name = @pName
+    ,AddressId = @pAddressId
+where 
+    CompanyId = @pCompanyId
 ";
-        public async Task<bool> UpdateUserType(UserType userType)
+        public async Task<bool> UpdateCompany(Company company)
         {
             var result = false;
 
@@ -102,10 +114,11 @@ where UserTypeId = @pUserTypeId
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_UpdateUserType, connection);
+                var command = new MySqlCommand(query_UpdateCompany, connection);
 
-                command.Parameters.Add(new MySqlParameter("@pDescription", userType.Description));
-                command.Parameters.Add(new MySqlParameter("@pUserTypeId", userType.UserTypeId));
+                command.Parameters.Add(new MySqlParameter("@pName", company.Name));
+                command.Parameters.Add(new MySqlParameter("@pAddressId", company.AddressId));
+                command.Parameters.Add(new MySqlParameter("@pCompanyId", company.CompanyId));
 
                 result = await command.ExecuteNonQueryAsync() == 1;
             }
@@ -117,11 +130,11 @@ where UserTypeId = @pUserTypeId
             return result;
         }
 
-        private const string query_DeleteUserType = @"
-delete usertype
-where UserTypeId = @pUserTypeId
+        private const string query_DeleteCompany = @"
+delete company
+where CompanyId = @pCompanyId
 ";
-        public async Task<bool> DeleteUserType(int userTypeId)
+        public async Task<bool> DeleteCompany(int companyId)
         {
             var result = false;
 
@@ -133,9 +146,9 @@ where UserTypeId = @pUserTypeId
                 };
                 connection.Open();
 
-                var command = new MySqlCommand(query_DeleteUserType, connection);
+                var command = new MySqlCommand(query_DeleteCompany, connection);
 
-                command.Parameters.Add(new MySqlParameter("@pUserTypeId", userTypeId));
+                command.Parameters.Add(new MySqlParameter("@pCompanyId", companyId));
 
                 result = await command.ExecuteNonQueryAsync() == 1;
             }

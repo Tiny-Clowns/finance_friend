@@ -41,6 +41,5 @@ namespace finance_friend.Server.Controllers
             var successful = await _dao.DeleteUserType(userTypeId);
             return Ok(successful);
         }
-
     }
 }
