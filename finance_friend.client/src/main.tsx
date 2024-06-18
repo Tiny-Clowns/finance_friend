@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App.tsx';
-import { store } from './redux/store.ts';
+import store from './redux/store.ts';
 
 // MUI font
 import '@fontsource/roboto/300.css';

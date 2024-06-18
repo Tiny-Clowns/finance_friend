@@ -1,16 +1,42 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { createStore } from 'redux';
 
-import forecast from './forecastSlice';
+// Define the state type
+interface AuthState {
+    isLoggedIn: boolean;
+}
 
-export const store = configureStore({
-  reducer: {
-    forecast,
-  },
-});
+// Define the initial state
+const initialState: AuthState = {
+    isLoggedIn: false
+};
 
-// Get the type of our store variable
-export type AppStore = typeof store;
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore['getState']>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = AppStore['dispatch'];
+// Define action types
+const LOGIN = 'LOGIN';
+const LOGOUT = 'LOGOUT';
+
+interface LoginAction {
+    type: typeof LOGIN;
+}
+
+interface LogoutAction {
+    type: typeof LOGOUT;
+}
+
+type AuthActionTypes = LoginAction | LogoutAction;
+
+// Reducer
+function authReducer(state = initialState, action: AuthActionTypes): AuthState {
+    switch (action.type) {
+        case LOGIN:
+            return { ...state, isLoggedIn: true };
+        case LOGOUT:
+            return { ...state, isLoggedIn: false };
+        default:
+            return state;
+    }
+}
+
+// Create store
+const store = createStore(authReducer);
+
+export default store;
