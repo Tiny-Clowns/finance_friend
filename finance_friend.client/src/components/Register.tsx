@@ -1,11 +1,11 @@
-// src/Register.js
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './Register.css';
-// import your action creator to handle form submission if needed
-//import { registerUser } from '../actions/authActions';
+
 
 const Register = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -21,8 +21,25 @@ const Register = () => {
         });
     };
 
+    const handleLogin = () => {
+        console.log('Navigate to login page');
+        navigate('/');
+    };
+    function passwordsMatch(): boolean {
+        return (document.getElementById('password') as HTMLInputElement).value === (document.getElementById('confirm-password') as HTMLInputElement).value;
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
+
+        if (passwordsMatch()) {
+            console.log("equal password");
+        }
+        else {
+            console.log("not equal password");
+        }
+
         // Dispatch your register action here
         // dispatch(registerUser(formData));
         console.log(formData); // For now, just log the form data
@@ -50,6 +67,7 @@ const Register = () => {
                         required
                     />
                     <input
+                        id="password"
                         type="password"
                         name="password"
                         placeholder="Password"
@@ -57,7 +75,16 @@ const Register = () => {
                         onChange={handleChange}
                         required
                     />
-                    <button type="submit" className="register-button">Register</button>
+                    <input
+                        id="confirm-password"
+                        type="password"
+                        name="confirm-password"
+                        placeholder="Confirm Password"
+                        required
+                    />
+                    <button className="green-button" type="submit">Register</button>
+                    <div className="button-gap"></div>
+                    <button className="red-button" onClick={handleLogin}>Login</button>
                 </form>
             </div>
         </div>
