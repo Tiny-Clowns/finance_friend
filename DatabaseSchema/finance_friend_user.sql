@@ -28,7 +28,7 @@ CREATE TABLE `user` (
   `FirstName` varchar(255) NOT NULL,
   `Username` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `Password` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
-  `BalanceDollars` decimal(20,4) NOT NULL,
+  `BalanceUSD` decimal(20,4) NOT NULL,
   `Email` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   `MobileNumber` varchar(255) NOT NULL,
   `AddressId` int NOT NULL,
@@ -68,4 +68,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-25 21:33:57
+-- Dump completed on 2024-06-06 19:33:27

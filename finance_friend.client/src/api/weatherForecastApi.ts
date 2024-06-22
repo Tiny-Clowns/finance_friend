@@ -1,6 +1,9 @@
 export async function populateWeatherData() {
-  const response = await fetch('weatherforecast');
-  return (await response.json()) as Forecast[];
+  const response = await fetch('api/weatherforecast');
+  if (response.ok) {
+    return (await response.json()) as Forecast[];
+  }
+  return [] as Forecast[];
 }
 
 export interface Forecast {
